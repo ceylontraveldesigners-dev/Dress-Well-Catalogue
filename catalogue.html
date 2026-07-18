@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DressWell.lk — Product Catalogue 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold:   #C9A84C;
+      --dark:   #0E0E0E;
+      --muted:  #9A9490;
+      --border: #E8E2DC;
+      --sand:   #F7F4F0;
+      --ff-serif: 'Playfair Display', Georgia, serif;
+      --ff-sans:  'Jost', Arial, sans-serif;
+    }
+
+    body { background: #fff; font-family: var(--ff-sans); color: var(--dark); -webkit-font-smoothing: antialiased; }
+
+    /* ── COVER ── */
+    .cover {
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: var(--dark); text-align: center;
+      padding: 4rem 2rem; position: relative; overflow: hidden;
+    }
+    .cover::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 40%, rgba(201,168,76,.08) 0%, transparent 65%);
+    }
+    .cover-logo {
+      font-family: var(--ff-serif); font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 400; color: #fff; letter-spacing: 2px; margin-bottom: 2rem; position: relative;
+    }
+    .cover-logo em { font-style: italic; }
+    .cover-logo span { font-style: normal; color: var(--gold); }
+    .cover-rule { width: 1px; height: 80px; background: linear-gradient(to bottom, transparent, var(--gold), transparent); margin: 0 auto 2rem; }
+    .cover-subtitle { font-size: .65rem; letter-spacing: 6px; text-transform: uppercase; color: rgba(255,255,255,.35); font-weight: 300; margin-bottom: 1.5rem; }
+    .cover-year { font-family: var(--ff-serif); font-size: clamp(4rem, 12vw, 10rem); font-weight: 400; font-style: italic; color: rgba(255,255,255,.06); line-height: 1; position: absolute; bottom: 2rem; right: 4rem; pointer-events: none; }
+
+    /* ── CONTENTS PAGE ── */
+    .contents {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 50vh; background: var(--sand);
+    }
+    .contents-left {
+      padding: 5rem 4rem 5rem 8rem; border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .contents-right { padding: 5rem 8rem 5rem 4rem; display: flex; flex-direction: column; justify-content: center; }
+    .contents-eyebrow { font-size: .6rem; letter-spacing: 5px; text-transform: uppercase; color: var(--muted); font-weight: 400; margin-bottom: 2rem; }
+    .contents-title { font-family: var(--ff-serif); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 400; font-style: italic; line-height: 1.2; margin-bottom: 3rem; }
+    .toc-item { display: flex; align-items: baseline; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+    .toc-item:last-child { border-bottom: none; }
+    .toc-num { font-size: .6rem; letter-spacing: 3px; color: var(--gold); font-family: var(--ff-sans); flex-shrink: 0; }
+    .toc-name { font-family: var(--ff-serif); font-size: 1.1rem; font-weight: 400; font-style: italic; flex: 1; }
+    .toc-count { font-size: .65rem; color: var(--muted); letter-spacing: 1px; }
+
+    /* ── CHAPTER OPENER ── */
+    .chapter {
+      padding: 7rem 8rem 2rem;
+      display: flex; align-items: flex-end; justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+    .chapter-left {}
+    .chapter-num { font-size: .6rem; letter-spacing: 5px; text-transform: uppercase; color: var(--gold); font-weight: 400; margin-bottom: 1rem; display: block; }
+    .chapter-title { font-family: var(--ff-serif); font-size: clamp(3rem, 7vw, 6rem); font-weight: 400; font-style: italic; line-height: 1; }
+    .chapter-title em { font-style: normal; color: var(--muted); font-size: .55em; display: block; margin-top: .3rem; font-family: var(--ff-sans); letter-spacing: 4px; text-transform: uppercase; }
+    .chapter-right { text-align: right; }
+    .chapter-desc { font-size: .82rem; line-height: 1.9; color: var(--muted); max-width: 280px; font-weight: 300; }
+
+    /* ── PRODUCT GRID ── */
+    .grid-section { padding: 3rem 8rem 6rem; }
+    .editorial-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2rem 1.5rem;
+    }
+    .e-card {}
+    .e-img {
+      width: 100%; aspect-ratio: 3/4;
+      overflow: hidden; background: var(--sand); margin-bottom: .8rem;
+      position: relative;
+    }
+    .e-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      display: block; transition: transform 5s ease;
+    }
+    .e-card:hover .e-img img { transform: scale(1.05); }
+    .e-num { font-size: .55rem; letter-spacing: 3px; color: var(--gold); font-family: var(--ff-sans); display: block; margin-bottom: .3rem; }
+    .e-name { font-family: var(--ff-serif); font-size: .88rem; font-weight: 400; color: var(--dark); line-height: 1.35; }
+
+    /* ── DIVIDER BETWEEN SECTIONS ── */
+    .section-break {
+      display: flex; align-items: center; gap: 3rem;
+      padding: 0 8rem; margin: 1rem 0;
+    }
+    .sb-line { flex: 1; height: 1px; background: var(--border); }
+    .sb-dot { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+
+    /* ── DESIGNER (DARK) ── */
+    .chapter-dark { background: #080808; }
+    .chapter-dark .chapter-num { color: rgba(201,168,76,.7); }
+    .chapter-dark .chapter-title { color: #fff; }
+    .chapter-dark .chapter-desc { color: rgba(255,255,255,.3); }
+    .grid-section-dark { background: #080808; padding: 3rem 8rem 7rem; }
+    .editorial-grid-dark .e-img { background: #111; }
+    .editorial-grid-dark .e-name { color: rgba(255,255,255,.85); }
+    .editorial-grid-dark .e-num { color: rgba(201,168,76,.6); }
+
+    /* ── BACK COVER ── */
+    .back-cover {
+      background: var(--dark); padding: 5rem 8rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .bc-logo { font-family: var(--ff-serif); font-size: 1.8rem; color: #fff; }
+    .bc-logo em { font-style: italic; }
+    .bc-logo span { color: var(--gold); }
+    .bc-info { text-align: right; }
+    .bc-info p { font-size: .7rem; letter-spacing: 2px; color: rgba(255,255,255,.3); line-height: 2; text-transform: uppercase; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .editorial-grid, .editorial-grid-dark { grid-template-columns: repeat(4, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .chapter, .grid-section, .grid-section-dark, .section-break { padding-left: 2.5rem; padding-right: 2.5rem; }
+      .editorial-grid, .editorial-grid-dark { grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+      .contents { grid-template-columns: 1fr; }
+      .contents-left { padding: 4rem 2.5rem 2rem; border-right: none; border-bottom: 1px solid var(--border); }
+      .contents-right { padding: 2rem 2.5rem 4rem; }
+      .back-cover { flex-direction: column; gap: 2rem; text-align: center; padding: 3rem 2.5rem; }
+      .bc-info { text-align: center; }
+    }
+    @media (max-width: 600px) {
+      .editorial-grid, .editorial-grid-dark { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ COVER ══════════════════════════════ -->
+<div class="cover">
+  <div class="cover-subtitle">DressWell.lk &nbsp;·&nbsp; Sri Lanka</div>
+  <div class="cover-logo"><em>Dress</em><span>Well</span></div>
+  <div class="cover-rule"></div>
+  <div class="cover-subtitle">Product Catalogue &nbsp;·&nbsp; 2026</div>
+  <div class="cover-year">2026</div>
+</div>
+
+<!-- ══ CONTENTS ═══════════════════════════ -->
+<div class="contents">
+  <div class="contents-left">
+    <div class="contents-eyebrow">Inside This Catalogue</div>
+    <div class="contents-title">80 Designs.<br>Four Collections.<br><em style="color:var(--gold);">One Vision.</em></div>
+  </div>
+  <div class="contents-right">
+    <div class="toc-item">
+      <span class="toc-num">01</span>
+      <span class="toc-name">Women's Fashion</span>
+      <span class="toc-count">25 designs</span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">02</span>
+      <span class="toc-name">Men's Fashion</span>
+      <span class="toc-count">20 designs</span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">03</span>
+      <span class="toc-name">Kids' Fashion</span>
+      <span class="toc-count">20 designs</span>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">04</span>
+      <span class="toc-name">Designer Atelier</span>
+      <span class="toc-count">15 bespoke designs</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- 01 · WOMEN'S                          -->
+<!-- ══════════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-left">
+    <span class="chapter-num">Collection 01</span>
+    <div class="chapter-title">Women's<em>Fashion</em></div>
+  </div>
+  <div class="chapter-right">
+    <p class="chapter-desc">Dresses, tops, co-ords, jackets and more — curated for the modern Sri Lankan woman. Trend-forward, honest LKR pricing.</p>
+  </div>
+</div>
+
+<div class="grid-section">
+  <div class="editorial-grid">
+
+    <div class="e-card">
+      <div class="e-img"><img src="images/Floral Midi Dress.png" alt="Floral Midi Dress"></div>
+      <span class="e-num">W — 01</span>
+      <div class="e-name">Floral Midi Dress</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Silk Maxi Dress.png" alt="Silk Maxi Dress"></div>
+      <span class="e-num">W — 02</span>
+      <div class="e-name">Silk Maxi Dress</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Maxi Wrap Dress.png" alt="Maxi Wrap Dress"></div>
+      <span class="e-num">W — 03</span>
+      <div class="e-name">Maxi Wrap Dress</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Linen Dress.png" alt="Linen Dress"></div>
+      <span class="e-num">W — 04</span>
+      <div class="e-name">Linen Dress</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Linen Co-ord Set.png" alt="Linen Co-ord Set"></div>
+      <span class="e-num">W — 05</span>
+      <div class="e-name">Linen Co-ord Set</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Boss Lady White Jacket.png" alt="Boss Lady White Jacket"></div>
+      <span class="e-num">W — 06</span>
+      <div class="e-name">Boss Lady White Jacket</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Boss Lady white linen top.png" alt="Boss Lady White Linen Top"></div>
+      <span class="e-num">W — 07</span>
+      <div class="e-name">Boss Lady White Linen Top</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Boss lady Short Skirt.png" alt="Boss Lady Short Skirt"></div>
+      <span class="e-num">W — 08</span>
+      <div class="e-name">Boss Lady Short Skirt</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Pleated maxi skirt.png" alt="Pleated Maxi Skirt"></div>
+      <span class="e-num">W — 09</span>
+      <div class="e-name">Pleated Maxi Skirt</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Ruched Mini Skirt.png" alt="Ruched Mini Skirt"></div>
+      <span class="e-num">W — 10</span>
+      <div class="e-name">Ruched Mini Skirt</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Wide-Leg Pants.png" alt="Wide-Leg Pants"></div>
+      <span class="e-num">W — 11</span>
+      <div class="e-name">Wide-Leg Pants</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Cowgirl Pants.png" alt="Cowgirl Pants"></div>
+      <span class="e-num">W — 12</span>
+      <div class="e-name">Cowgirl Pants</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Knit Crop Top.png" alt="Knit Crop Top"></div>
+      <span class="e-num">W — 13</span>
+      <div class="e-name">Knit Crop Top</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Ribbed camisole bodysuit.png" alt="Ribbed Camisole Bodysuit"></div>
+      <span class="e-num">W — 14</span>
+      <div class="e-name">Ribbed Camisole Bodysuit</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Pink Sweater with Hoodie.png" alt="Pink Sweater with Hoodie"></div>
+      <span class="e-num">W — 15</span>
+      <div class="e-name">Pink Sweater with Hoodie</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Denim Jacket.png" alt="Denim Jacket"></div>
+      <span class="e-num">W — 16</span>
+      <div class="e-name">Denim Jacket</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Checked Shirt.png" alt="Checked Shirt"></div>
+      <span class="e-num">W — 17</span>
+      <div class="e-name">Checked Shirt</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Classic White Shirt.png" alt="Classic White Shirt"></div>
+      <span class="e-num">W — 18</span>
+      <div class="e-name">Classic White Shirt</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Lady Coverall.png" alt="Lady Coverall"></div>
+      <span class="e-num">W — 19</span>
+      <div class="e-name">Lady Coverall</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Party Maxi Dress.png" alt="Party Maxi Dress"></div>
+      <span class="e-num">W — 20</span>
+      <div class="e-name">Party Maxi Dress</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Nude-purple wide-leg jumpsuit.png" alt="Nude-Purple Wide-Leg Jumpsuit"></div>
+      <span class="e-num">W — 21</span>
+      <div class="e-name">Nude-Purple Wide-Leg Jumpsuit</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Champagne satin blouse.png" alt="Champagne Satin Blouse"></div>
+      <span class="e-num">W — 22</span>
+      <div class="e-name">Champagne Satin Blouse</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Cinnamon rose midi dress.png" alt="Cinnamon Rose Midi Dress"></div>
+      <span class="e-num">W — 23</span>
+      <div class="e-name">Cinnamon Rose Midi Dress</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Elegant pearl-beige two-piece set.png" alt="Elegant Pearl-Beige Two-Piece Set"></div>
+      <span class="e-num">W — 24</span>
+      <div class="e-name">Elegant Pearl-Beige Two-Piece Set</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/ChatGPT Image Jul 17, 2026, 05_15_17 PM (1).png" alt="Evening Collection"></div>
+      <span class="e-num">W — 25</span>
+      <div class="e-name">Evening Collection</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section-break"><div class="sb-line"></div><div class="sb-dot"></div><div class="sb-line"></div></div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- 02 · MEN'S                            -->
+<!-- ══════════════════════════════════════ -->
+<div class="chapter" style="background:var(--sand);">
+  <div class="chapter-left">
+    <span class="chapter-num">Collection 02</span>
+    <div class="chapter-title">Men's<em>Fashion</em></div>
+  </div>
+  <div class="chapter-right">
+    <p class="chapter-desc">Shirts, trousers, jackets and casualwear — smart pieces built for Sri Lankan lifestyles, from office to weekend.</p>
+  </div>
+</div>
+
+<div class="grid-section" style="background:var(--sand);">
+  <div class="editorial-grid">
+
+    <div class="e-card">
+      <div class="e-img"><img src="images/Charcoal tailored blazer.png" alt="Charcoal Tailored Blazer"></div>
+      <span class="e-num">M — 01</span>
+      <div class="e-name">Charcoal Tailored Blazer</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Classic tan Harrington jacket.png" alt="Classic Tan Harrington Jacket"></div>
+      <span class="e-num">M — 02</span>
+      <div class="e-name">Classic Tan Harrington Jacket</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Mid-blue denim trucker jacket.png" alt="Mid-Blue Denim Trucker Jacket"></div>
+      <span class="e-num">M — 03</span>
+      <div class="e-name">Mid-Blue Denim Trucker Jacket</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Slate-blue utility shirt jacket.png" alt="Slate-Blue Utility Shirt Jacket"></div>
+      <span class="e-num">M — 04</span>
+      <div class="e-name">Slate-Blue Utility Shirt Jacket</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Olive utility lightweight overshirt.png" alt="Olive Utility Overshirt"></div>
+      <span class="e-num">M — 05</span>
+      <div class="e-name">Olive Utility Overshirt</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Pale blue slim-fit oxford shirt.png" alt="Pale Blue Slim-Fit Oxford Shirt"></div>
+      <span class="e-num">M — 06</span>
+      <div class="e-name">Pale Blue Slim-Fit Oxford Shirt</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Light sage linen short-sleeve shirt.png" alt="Light Sage Linen Shirt"></div>
+      <span class="e-num">M — 07</span>
+      <div class="e-name">Light Sage Linen Shirt</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Off-white casual henley shirt.png" alt="Off-White Henley Shirt"></div>
+      <span class="e-num">M — 08</span>
+      <div class="e-name">Off-White Henley Shirt</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Deep navy casual polo shirt.png" alt="Deep Navy Polo Shirt"></div>
+      <span class="e-num">M — 09</span>
+      <div class="e-name">Deep Navy Polo Shirt</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Oatmeal knitted polo shirt.png" alt="Oatmeal Knitted Polo Shirt"></div>
+      <span class="e-num">M — 10</span>
+      <div class="e-name">Oatmeal Knitted Polo Shirt</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Premium white relaxed-fit t-shirt.png" alt="Premium White Relaxed-Fit T-Shirt"></div>
+      <span class="e-num">M — 11</span>
+      <div class="e-name">Premium White Relaxed-Fit T-Shirt</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Forest green quarter-zip pullover.png" alt="Forest Green Quarter-Zip Pullover"></div>
+      <span class="e-num">M — 12</span>
+      <div class="e-name">Forest Green Quarter-Zip Pullover</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Rust crew-neck sweatshirt.png" alt="Rust Crew-Neck Sweatshirt"></div>
+      <span class="e-num">M — 13</span>
+      <div class="e-name">Rust Crew-Neck Sweatshirt</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Camel smart casual cardigan.png" alt="Camel Smart Casual Cardigan"></div>
+      <span class="e-num">M — 14</span>
+      <div class="e-name">Camel Smart Casual Cardigan</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Dark navy tailored wool trousers.png" alt="Dark Navy Tailored Wool Trousers"></div>
+      <span class="e-num">M — 15</span>
+      <div class="e-name">Dark Navy Tailored Wool Trousers</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Stone beige chino trousers.png" alt="Stone Beige Chino Trousers"></div>
+      <span class="e-num">M — 16</span>
+      <div class="e-name">Stone Beige Chino Trousers</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Dark wash slim jeans.png" alt="Dark Wash Slim Jeans"></div>
+      <span class="e-num">M — 17</span>
+      <div class="e-name">Dark Wash Slim Jeans</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Black tapered cargo trousers.png" alt="Black Tapered Cargo Trousers"></div>
+      <span class="e-num">M — 18</span>
+      <div class="e-name">Black Tapered Cargo Trousers</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Heather grey tapered jogger.png" alt="Heather Grey Tapered Jogger"></div>
+      <span class="e-num">M — 19</span>
+      <div class="e-name">Heather Grey Tapered Jogger</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Sand-colored casual shorts.png" alt="Sand-Colored Casual Shorts"></div>
+      <span class="e-num">M — 20</span>
+      <div class="e-name">Sand-Colored Casual Shorts</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section-break" style="background:var(--sand);"><div class="sb-line"></div><div class="sb-dot"></div><div class="sb-line"></div></div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- 03 · KIDS                             -->
+<!-- ══════════════════════════════════════ -->
+<div class="chapter">
+  <div class="chapter-left">
+    <span class="chapter-num">Collection 03</span>
+    <div class="chapter-title">Kids'<em>Fashion</em></div>
+  </div>
+  <div class="chapter-right">
+    <p class="chapter-desc">Playful, durable and stylish clothing for girls, boys and unisex — made to move, built to last.</p>
+  </div>
+</div>
+
+<div class="grid-section">
+  <div class="editorial-grid">
+
+    <div class="e-card">
+      <div class="e-img"><img src="images/Girls floral smocked dress.png" alt="Girls Floral Smocked Dress"></div>
+      <span class="e-num">K — 01</span>
+      <div class="e-name">Girls Floral Smocked Dress</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Dusty rose tulle party dress.png" alt="Dusty Rose Tulle Party Dress"></div>
+      <span class="e-num">K — 02</span>
+      <div class="e-name">Dusty Rose Tulle Party Dress</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Girls hoodie dress in blue.png" alt="Girls Hoodie Dress in Blue"></div>
+      <span class="e-num">K — 03</span>
+      <div class="e-name">Girls Hoodie Dress in Blue</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Girls terracotta wide-leg jumpsuit.png" alt="Girls Terracotta Wide-Leg Jumpsuit"></div>
+      <span class="e-num">K — 04</span>
+      <div class="e-name">Girls Terracotta Wide-Leg Jumpsuit</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Mid-blue denim pinafore dress.png" alt="Mid-Blue Denim Pinafore Dress"></div>
+      <span class="e-num">K — 05</span>
+      <div class="e-name">Mid-Blue Denim Pinafore Dress</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Mint green girls cardigan.png" alt="Mint Green Girls Cardigan"></div>
+      <span class="e-num">K — 06</span>
+      <div class="e-name">Mint Green Girls Cardigan</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Blush pink girls pleated skort.png" alt="Blush Pink Girls Pleated Skort"></div>
+      <span class="e-num">K — 07</span>
+      <div class="e-name">Blush Pink Girls Pleated Skort</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Pastel lavender ruffle-sleeve t-shirt.png" alt="Pastel Lavender Ruffle-Sleeve T-Shirt"></div>
+      <span class="e-num">K — 08</span>
+      <div class="e-name">Pastel Lavender Ruffle-Sleeve T-Shirt</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Girls embroidered cotton blouse.png" alt="Girls Embroidered Cotton Blouse"></div>
+      <span class="e-num">K — 09</span>
+      <div class="e-name">Girls Embroidered Cotton Blouse</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Classic pale blue oxford shirt.png" alt="Classic Pale Blue Oxford Shirt"></div>
+      <span class="e-num">K — 10</span>
+      <div class="e-name">Classic Pale Blue Oxford Shirt</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Boys olive cargo jogger pants.png" alt="Boys Olive Cargo Jogger Pants"></div>
+      <span class="e-num">K — 11</span>
+      <div class="e-name">Boys Olive Cargo Jogger Pants</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Boys beige linen co-ord set.png" alt="Boys Beige Linen Co-ord Set"></div>
+      <span class="e-num">K — 12</span>
+      <div class="e-name">Boys Beige Linen Co-ord Set</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Boys color-block polo shirt.png" alt="Boys Color-Block Polo Shirt"></div>
+      <span class="e-num">K — 13</span>
+      <div class="e-name">Boys Color-Block Polo Shirt</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Boys navy and rust checked shirt.png" alt="Boys Navy and Rust Checked Shirt"></div>
+      <span class="e-num">K — 14</span>
+      <div class="e-name">Boys Navy & Rust Checked Shirt</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Boys sand beige chino shorts.png" alt="Boys Sand Beige Chino Shorts"></div>
+      <span class="e-num">K — 15</span>
+      <div class="e-name">Boys Sand Beige Chino Shorts</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Forest green boys varsity jacket.png" alt="Forest Green Boys Varsity Jacket"></div>
+      <span class="e-num">K — 16</span>
+      <div class="e-name">Forest Green Boys Varsity Jacket</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/medium-wash boys denim jacket.png" alt="Medium-Wash Boys Denim Jacket"></div>
+      <span class="e-num">K — 17</span>
+      <div class="e-name">Medium-Wash Boys Denim Jacket</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Oatmeal knit crew-neck sweater.png" alt="Oatmeal Knit Crew-Neck Sweater"></div>
+      <span class="e-num">K — 18</span>
+      <div class="e-name">Oatmeal Knit Crew-Neck Sweater</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Unisex striped t-shirt.png" alt="Unisex Striped T-Shirt"></div>
+      <span class="e-num">K — 19</span>
+      <div class="e-name">Unisex Striped T-Shirt</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Yellow unisex hoodie.png" alt="Yellow Unisex Hoodie"></div>
+      <span class="e-num">K — 20</span>
+      <div class="e-name">Yellow Unisex Hoodie</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- 04 · DESIGNER                         -->
+<!-- ══════════════════════════════════════ -->
+<div class="chapter chapter-dark">
+  <div class="chapter-left">
+    <span class="chapter-num">Collection 04</span>
+    <div class="chapter-title" style="color:#fff;">Designer<em style="color:rgba(255,255,255,.25);">Atelier</em></div>
+  </div>
+  <div class="chapter-right">
+    <p class="chapter-desc">Bespoke bridal gowns, couture and made-to-order creations — handcrafted exclusively for your most important moments.</p>
+  </div>
+</div>
+
+<div class="grid-section-dark">
+  <div class="editorial-grid editorial-grid-dark" style="grid-template-columns: repeat(5,1fr);">
+
+    <div class="e-card">
+      <div class="e-img"><img src="images/Bridal Gown.png" alt="Bridal Gown"></div>
+      <span class="e-num">D — 01</span>
+      <div class="e-name" style="color:rgba(255,255,255,.8);">Bridal Gown</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/midnight navy tuxedo.png" alt="Midnight Navy Tuxedo"></div>
+      <span class="e-num">D — 02</span>
+      <div class="e-name" style="color:rgba(255,255,255,.8);">Midnight Navy Tuxedo</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Party Maxi Dress.png" alt="Party Maxi Dress"></div>
+      <span class="e-num">D — 03</span>
+      <div class="e-name" style="color:rgba(255,255,255,.8);">Party Maxi Dress</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/ChatGPT Image Jul 17, 2026, 11_07_56 AM.png" alt="Atelier Collection I"></div>
+      <span class="e-num">D — 04</span>
+      <div class="e-name" style="color:rgba(255,255,255,.8);">Atelier Collection I</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/ChatGPT Image Jul 17, 2026, 11_08_02 AM.png" alt="Atelier Collection II"></div>
+      <span class="e-num">D — 05</span>
+      <div class="e-name" style="color:rgba(255,255,255,.8);">Atelier Collection II</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Champagne high-low evening dress.png" alt="Champagne High-Low Evening Dress"></div>
+      <span class="e-num">D — 06</span>
+      <div class="e-name" style="color:rgba(255,255,255,.8);">Champagne High-Low Evening Dress</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Deep amethyst velvet gown with cape.png" alt="Deep Amethyst Velvet Gown with Cape"></div>
+      <span class="e-num">D — 07</span>
+      <div class="e-name" style="color:rgba(255,255,255,.8);">Deep Amethyst Velvet Gown with Cape</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Dusty rose peplum couture.png" alt="Dusty Rose Peplum Couture"></div>
+      <span class="e-num">D — 08</span>
+      <div class="e-name" style="color:rgba(255,255,255,.8);">Dusty Rose Peplum Couture</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Elegant lavender waterfall gown.png" alt="Elegant Lavender Waterfall Gown"></div>
+      <span class="e-num">D — 09</span>
+      <div class="e-name" style="color:rgba(255,255,255,.8);">Elegant Lavender Waterfall Gown</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Luminous moonstone chiffon trouser suit.png" alt="Luminous Moonstone Chiffon Trouser Suit"></div>
+      <span class="e-num">D — 10</span>
+      <div class="e-name" style="color:rgba(255,255,255,.8);">Luminous Moonstone Chiffon Trouser Suit</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Nude-gold couture dress with cape.png" alt="Nude-Gold Couture Dress with Cape"></div>
+      <span class="e-num">D — 11</span>
+      <div class="e-name" style="color:rgba(255,255,255,.8);">Nude-Gold Couture Dress with Cape</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Plum velvet column gown with gold applique.png" alt="Plum Velvet Column Gown with Gold Appliqué"></div>
+      <span class="e-num">D — 12</span>
+      <div class="e-name" style="color:rgba(255,255,255,.8);">Plum Velvet Column Gown with Gold Appliqué</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Rose-gold satin ball gown.png" alt="Rose-Gold Satin Ball Gown"></div>
+      <span class="e-num">D — 13</span>
+      <div class="e-name" style="color:rgba(255,255,255,.8);">Rose-Gold Satin Ball Gown</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Dusky mauve petal gown details.png" alt="Dusky Mauve Petal Gown"></div>
+      <span class="e-num">D — 14</span>
+      <div class="e-name" style="color:rgba(255,255,255,.8);">Dusky Mauve Petal Gown</div>
+    </div>
+    <div class="e-card">
+      <div class="e-img"><img src="images/Ethereal champagne pearl gown.png" alt="Ethereal Champagne Pearl Gown"></div>
+      <span class="e-num">D — 15</span>
+      <div class="e-name" style="color:rgba(255,255,255,.8);">Ethereal Champagne Pearl Gown</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ BACK COVER ═════════════════════════ -->
+<div class="back-cover">
+  <div class="bc-logo"><em>Dress</em><span>Well</span>.lk</div>
+  <div class="bc-info">
+    <p>hello@dresswell.lk &nbsp;·&nbsp; +94 77 000 0000</p>
+    <p>Free Delivery Over LKR 3,000 &nbsp;·&nbsp; Island-Wide</p>
+    <p>New Arrivals Every Friday &nbsp;·&nbsp; 2026</p>
+  </div>
+</div>
+
+</body>
+</html>
